@@ -1,0 +1,16 @@
+# Generated HTML files
+gomi_calendar_*.html
+
+# Preview/debug images
+preview_*.png
+comparison_*.png
+debug_*.png
+extracted-*.png
+page-*.png
+
+# PDF originals
+*.pdf
+
+# Python
+__pycache__/
+*.pyc

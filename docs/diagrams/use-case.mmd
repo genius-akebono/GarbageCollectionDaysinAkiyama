@@ -1,0 +1,68 @@
+---
+title: ユースケース図 - 秋山自治会ゴミ出しカレンダー自動生成システム
+---
+graph LR
+    subgraph Actors["アクター"]
+        User["自治会担当者<br/>(カレンダー作成者)"]
+        Resident["住民<br/>(カレンダー利用者)"]
+    end
+
+    subgraph UC_Generate["カレンダー生成"]
+        UC1["当年度カレンダーを生成"]
+        UC2["指定年度カレンダーを生成"]
+        UC3["指定月カレンダーを生成"]
+        UC4["期間指定でカレンダーを生成"]
+    end
+
+    subgraph UC_Review["確認・検証"]
+        UC5["HTMLをブラウザで確認"]
+        UC6["祝日表示を確認"]
+        UC7["ゴミ種別の配置を確認"]
+    end
+
+    subgraph UC_Output["出力・配布"]
+        UC8["A4用紙に印刷"]
+        UC9["住民に配布"]
+    end
+
+    subgraph UC_Resident["住民の利用"]
+        UC10["収集日を確認"]
+        UC11["ゴミ種別を確認"]
+        UC12["収集時間を確認"]
+    end
+
+    User --> UC1
+    User --> UC2
+    User --> UC3
+    User --> UC4
+    User --> UC5
+    User --> UC6
+    User --> UC7
+    User --> UC8
+    User --> UC9
+
+    Resident --> UC10
+    Resident --> UC11
+    Resident --> UC12
+
+    UC1 -.->|include| UC5
+    UC2 -.->|include| UC5
+    UC3 -.->|include| UC5
+    UC4 -.->|include| UC5
+    UC5 -.->|include| UC6
+    UC5 -.->|include| UC7
+    UC5 -.->|extend| UC8
+    UC8 -.->|extend| UC9
+    UC9 -.->|extend| UC10
+
+    classDef actor fill:#e3f2fd,stroke:#1976d2,color:#1976d2
+    classDef generate fill:#fff,stroke:#333
+    classDef review fill:#fff3e0,stroke:#f57c00
+    classDef output fill:#e8f5e9,stroke:#388e3c
+    classDef resident fill:#fce4ec,stroke:#c2185b
+
+    class User,Resident actor
+    class UC1,UC2,UC3,UC4 generate
+    class UC5,UC6,UC7 review
+    class UC8,UC9 output
+    class UC10,UC11,UC12 resident
