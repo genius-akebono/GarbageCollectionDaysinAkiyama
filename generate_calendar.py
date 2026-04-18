@@ -329,20 +329,20 @@ h2.month-title {
 }
 .icon {
   display: block;
-  margin: 1px auto;
-  max-width: 60px;
-  max-height: 48px;
+  margin: 0 auto;
+  max-width: 90px;
+  max-height: 80px;
   object-fit: contain;
 }
 .icon.kanen-small {
-  max-width: 30px;
-  max-height: 26px;
+  max-width: 44px;
+  max-height: 40px;
   display: inline-block;
   vertical-align: middle;
 }
 .icon.kan-bin {
-  max-width: 48px;
-  max-height: 42px;
+  max-width: 68px;
+  max-height: 62px;
   display: inline-block;
   vertical-align: middle;
 }
@@ -383,11 +383,11 @@ h2.month-title {
   font-weight: bold;
 }
 .friday-img-wrap {
-  margin-top: 2px;
+  margin-top: 0;
 }
 .icon.friday-img {
-  max-width: 90px;
-  max-height: 90px;
+  max-width: 115px;
+  max-height: 105px;
   display: block;
   margin: 0 auto;
 }
