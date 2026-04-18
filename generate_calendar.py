@@ -32,7 +32,10 @@ def _find_image_dir():
         candidate = parent / "images"
         if candidate.exists():
             return candidate
-    return SCRIPT_DIR / "icons"  # フォールバック
+    raise FileNotFoundError(
+        "images/ ディレクトリが見つかりません。"
+        "スクリプトと同じ階層か上位に images/ を配置してください。"
+    )
 
 ICON_DIR = _find_image_dir()
 
