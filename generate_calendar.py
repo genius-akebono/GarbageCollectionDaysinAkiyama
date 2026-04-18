@@ -32,12 +32,14 @@ MONTH_NAMES_EN = [
 
 # アイコンファイル名
 ICON_FILES = {
-    "saisei_kami":      "01_saisei_kami.png",
-    "recycle_plastic":  "02_recycle_plastic.png",
-    "kanen_gomi":       "03_kanen_gomi.png",
-    "gomu_gawa":        "04_gomu_gawa.png",
-    "kan_bin":          "05_kan_bin.png",
-    "shushu_nashi":     "07_shushu_nashi.png",
+    "saisei_kami":         "01_saisei_kami.png",
+    "recycle_plastic":     "02_recycle_plastic.png",
+    "kanen_gomi":          "03_kanen_gomi.png",
+    "gomu_gawa":           "04_gomu_gawa.png",
+    "kan_bin":             "05_kan_bin.png",
+    "friday_kami_nuno":    "06_friday_kami_nuno.png",
+    "friday_bin_kan":      "06_friday_bin_kan.png",
+    "shushu_nashi":        "07_shushu_nashi.png",
 }
 
 # ---------------------------------------------------------------------------
@@ -90,13 +92,15 @@ def get_garbage_info(d):
     if dow == 4:  # 金曜
         # 奇数週: 資源ゴミ(紙・布) / 偶数週: 資源ゴミ(ビン・缶)
         if week_num % 2 == 1:
-            shigen = "・資源ゴミ(紙・布)"
+            icon_key = "friday_kami_nuno"
+            label = "・不燃ゴミ\n・有害ゴミ\n・資源ゴミ(紙・布)\n・剪定枝・雑草\n・かさ・乾電池"
         else:
-            shigen = "・資源ゴミ(ビン・缶)"
+            icon_key = "friday_bin_kan"
+            label = "・不燃ゴミ\n・有害ゴミ\n・資源ゴミ(ビン・缶)\n・剪定枝・雑草\n・かさ・乾電池"
         return [{
-            "icon_key": None,
-            "label": f"・不燃ゴミ\n・有害ゴミ\n{shigen}\n・剪定枝・雑草\n・かさ・乾電池",
-            "css_class": "friday-text",
+            "icon_key": icon_key,
+            "label": label,
+            "css_class": "friday-img",
         }]
 
     if dow == 5:  # 土曜
@@ -156,8 +160,11 @@ def generate_month_html(year, month, icons_b64):
                     icon_html = f'<img src="{icons_b64[item["icon_key"]]}" class="icon {css}" alt="{item["label"]}">'
 
                 label_lines = item["label"].replace("\n", "<br>")
-                if item["css_class"] == "friday-text":
-                    cell_content += f'<div class="friday-items">{label_lines}</div>\n'
+                if item["css_class"] == "friday-img":
+                    if icon_html:
+                        cell_content += f'<div class="friday-img-wrap">{icon_html}</div>\n'
+                    else:
+                        cell_content += f'<div class="friday-items">{label_lines}</div>\n'
                 elif item["css_class"] == "shushu-nashi":
                     if icon_html:
                         cell_content += f'<div class="item-wrap">{icon_html}</div>\n'
@@ -362,6 +369,15 @@ h2.month-title {
   line-height: 1.15;
   margin-top: 0;
   font-weight: bold;
+}
+.friday-img-wrap {
+  margin-top: 2px;
+}
+.icon.friday-img {
+  max-width: 90px;
+  max-height: 90px;
+  display: block;
+  margin: 0 auto;
 }
 .shushu-nashi-text {
   font-size: 31px;
