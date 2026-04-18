@@ -22,7 +22,19 @@ import jpholiday
 # 定数
 # ---------------------------------------------------------------------------
 SCRIPT_DIR = Path(__file__).resolve().parent
-ICON_DIR = SCRIPT_DIR / "icons"
+
+def _find_image_dir():
+    """images/ ディレクトリをスクリプト位置から上位へ探索"""
+    candidate = SCRIPT_DIR / "images"
+    if candidate.exists():
+        return candidate
+    for parent in SCRIPT_DIR.parents:
+        candidate = parent / "images"
+        if candidate.exists():
+            return candidate
+    return SCRIPT_DIR / "icons"  # フォールバック
+
+ICON_DIR = _find_image_dir()
 
 WEEKDAY_NAMES_JA = ["月", "火", "水", "木", "金", "土", "日"]
 MONTH_NAMES_EN = [
@@ -32,14 +44,14 @@ MONTH_NAMES_EN = [
 
 # アイコンファイル名
 ICON_FILES = {
-    "saisei_kami":         "01_saisei_kami.png",
-    "recycle_plastic":     "02_recycle_plastic.png",
-    "kanen_gomi":          "03_kanen_gomi.png",
-    "gomu_gawa":           "04_gomu_gawa.png",
-    "kan_bin":             "05_kan_bin.png",
-    "friday_kami_nuno":    "06_friday_kami_nuno.png",
-    "friday_bin_kan":      "06_friday_bin_kan.png",
-    "shushu_nashi":        "07_shushu_nashi.png",
+    "saisei_kami":      "01_saisei_kami.png",
+    "recycle_plastic":  "02_recycle_plastic.png",
+    "kanen_gomi":       "03_kanen_gomi.png",
+    "gomu_gawa":        "04_gomu_gawa.png",
+    "kan_bin":          "05_kan_bin.png",
+    "friday_kami_nuno": "06_friday_kami_nuno.png",
+    "friday_bin_kan":   "06_friday_bin_kan.png",
+    "shushu_nashi":     "07_shushu_nashi.png",
 }
 
 # ---------------------------------------------------------------------------
